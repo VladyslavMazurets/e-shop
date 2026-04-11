@@ -3,13 +3,22 @@ import { router } from "../router.js";
 import { loadData } from "../dataLoader.js";
 import { validateEmail } from "../api/emailApi.js";
 import { iconArrow, iconStar, iconPlus, iconSmallArrow, iconScale, iconHeart, iconMinus, iconCart, iconClose, iconChevronDown } from "../components/icons.js";
+import { showToast } from "../components/toast.js";
 
 
 import heroBannerImg from '../assets/images/hero-banner.webp';
+import secretOfferImg from '../assets/images/secret-offer.webp';
+import dewaltImg from '../assets/images/products/dewalt-pro-700.webp';
+import metaboImg from '../assets/images/products/metabo-600.webp';
 
 /**
  * Solution Page
  */
+
+const productImagesMap = {
+    "1": dewaltImg,
+    "2": metaboImg
+};
 
 // CTA button click handler
 const handleCtaClick = () => {
@@ -268,7 +277,7 @@ const solutionBanner = (banner) => {
 // Solution CTA section
 const solutionCta = (ctaBanner) => html`
     <div class="c-solution-cta">
-        <div class="c-solution-cta__image" style="background-image: url('${ctaBanner.imageUrl || 'https://placehold.co/600x600'}')"></div>
+        <div class="c-solution-cta__image" style="background-image: url('${ secretOfferImg || ctaBanner.imageUrl}')"></div>
 
         <div class="c-solution-cta__overlay"></div>
 
@@ -294,61 +303,97 @@ const renderStars = (rating) => {
 };
 
 const handleAddToCart = (e, product) => {
+    e.preventDefault();
+    e.stopPropagation();
     const container = e.target.closest('.c-product__actions');
-    const input = container.querySelector('input');
-    const qty = parseInt(input.value, 10);
+    const qtyEl = container.querySelector('.c-quantity');
+    const qtyValueDisplay = qtyEl.querySelector('.c-quantity__value');
+    const qty = parseInt(qtyEl.dataset.qty, 10);
     
     if (qty > 10) {
-        alert('Upozornenie: Pridali ste viac ako maximalne mnozstvo 10 ks.');
+        showToast('Upozornenie: Pridali ste viac ako maximálne množstvo 10 ks.', 'warning');
     } else {
-        alert(`Úspech: ${qty} x ${product.name} bolo pridaných do košíka.`);
+        showToast(`Úspech: ${qty} x ${product.name} bolo pridaných do košíka.`, 'success');
+        
+        // Reset quantity after success
+        qtyEl.dataset.qty = '1';
+        if (qtyValueDisplay) {
+            qtyValueDisplay.textContent = '1';
+        }
     }
 };
 
 const handleQtyChange = (e, delta) => {
-    const input = e.target.closest('.c-quantity').querySelector('input');
-    let val = parseInt(input.value, 10) + delta;
+    e.preventDefault();
+    e.stopPropagation();
+    const qtyEl = e.target.closest('.c-quantity');
+    let val = parseInt(qtyEl.dataset.qty, 10) + delta;
     if (val < 1) val = 1;
     if (val > 99) val = 99;
-    input.value = val;
+    qtyEl.dataset.qty = val;
+    qtyEl.querySelector('.c-quantity__value').textContent = val;
+};const handleActionClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.target.closest('button').classList.toggle('is-active');
 };
 
-const renderProduct = (product) => html`
-    <div class="c-product">
-        <div class="c-product__image-wrap">
-            <img src="${product.imageUrl || 'https://placehold.co/300x200'}" alt="${product.name}">
+const handleProductClick = (e, link) => {
+    // If user clicked on a button or quantity input, don't navigate
+    if (e.target.closest('button, input')) {
+        return;
+    }
+    
+    e.preventDefault();
+    router.navigate(link);
+};
+
+const renderProduct = (product) => {
+    const finalImageUrl = productImagesMap[product.id] || product.imageUrl;
+
+    return html`
+    <a href="${product.link}" class="c-product" @click=${(e) => handleProductClick(e, product.link)}>
+        <div class="c-product__header">
             <div class="c-product-badges">
-                ${product.badges ? product.badges.map(badge => html`<span class="c-product-badges__badge c-product-badges__badge--${badge.type}">${badge.label}</span>`) : ''}
+                ${product.badges ? product.badges.map(badge => html`<span class="c-product-badges__badge c-product-badges__badge--${badge.type}">
+                    ${badge.label}</span>`) : ''}
             </div>
             <div class="c-product__compare">
-                <button title="Porovnať">
+                <button title="Porovnať" @click=${handleActionClick}>
                     ${iconScale()}
                 </button>
-                <button title="Obľúbené">
+                <button title="Obľúbené" @click=${handleActionClick}>
                     ${iconHeart()}
                 </button>
             </div>
         </div>
+
+        <div class="c-product__image-wrap">
+            <img src="${finalImageUrl}" alt="${product.name}">
+        </div>
+
         <div class="c-product__body">
             <div class="c-product__rating">
                 <div class="c-stars">${renderStars(product.rating)}</div>
                 <span class="c-review-count">(${product.reviewCount})</span>
             </div>
-            <h3 class="c-product__title">${product.name}</h3>
+            <h3 class="c-product__title">
+                ${product.name}
+            </h3>
             <p class="c-product__sku">${product.sku}</p>
             
             <div class="c-product__price">
-                <div class="c-product__price__original">${product.originalPrice ? product.originalPrice.toFixed(2) + ' €' : ''}</div>
-                <div class="c-product__price__sale">${product.salePrice.toFixed(2).replace('.', ',')} €</div>
-                <div class="c-product__price__novat">${product.priceWithoutVAT.toFixed(2).replace('.', ',')} € bez DPH</div>
+                <div class="c-product__price__original">${product.originalPrice ? product.originalPrice.toFixed(2) + ' ' + product.currency : ''}</div>
+                <div class="c-product__price__sale">${product.salePrice.toFixed(2).replace('.', ',')} ${product.currency}</div>
+                <div class="c-product__price__novat">${product.priceWithoutVAT.toFixed(2).replace('.', ',')} ${product.currency} bez DPH</div>
             </div>
             
             <div class="c-product__stock">${product.stock}</div>
             
             <div class="c-product__actions">
-                <div class="c-quantity">
+                <div class="c-quantity" data-qty="1">
                     <button @click=${(e) => handleQtyChange(e, -1)}>${iconMinus()}</button>
-                    <input type="number" value="1" min="1" max="99">
+                    <span class="c-quantity__value">1</span>
                     <button @click=${(e) => handleQtyChange(e, 1)}>${iconPlus()}</button>
                 </div>
                 <button class="c-add-cart" @click=${(e) => handleAddToCart(e, product)}>
@@ -357,8 +402,9 @@ const renderProduct = (product) => html`
                 </button>
             </div>
         </div>
-    </div>
-`;
+    </a>
+`
+};
 
 const renderCategory = (category) => html`
     <div class="c-category">
@@ -370,7 +416,7 @@ const renderCategory = (category) => html`
                 <span class="c-category__count">${category.productCount}</span>
             </div>
             <ul>
-                ${category.subcategories.map(sub => html`<li><a href="${sub.link}" style="color:inherit;text-decoration:none">${sub.name}</a></li>`)}
+                ${(category.subcategories || []).map(sub => html`<li><a href="${sub.link}" class="c-category__sub-link">${sub.name}</a></li>`)}
             </ul>
             <a href="${category.link}" class="c-category__link">
                 ${category.ctaText}
@@ -394,15 +440,10 @@ export const renderSolutionPage = (data) => {
 
             <div class="l-solution__content">
                 <div class="l-container is-shorter">
-                    <div class="c-solution-content">
-                        <div class="c-solution-content__cta">
-                            ${data.ctaBanner ? solutionCta(data.ctaBanner) : html``}
+                        <div class="c-solution-content">
+                            ${data.ctaBanner ? html`<div class="c-solution-content__cta">${solutionCta(data.ctaBanner)}</div>` : ""}
+                            ${[...data.products, ...data.products].map(product => renderProduct(product))}
                         </div>
-
-                        <div class="c-solution-content__products">
-                            ${data.products.map(product => renderProduct(product))}
-                        </div>
-                    </div>
                 </div>
             </div>
 

@@ -2,19 +2,16 @@
 
 .c-solution-categories {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2.4rem;
     margin-top: 2.4rem;
     margin-bottom: 6.4rem;
     
-    /* Responsive adjustments */
-    @media (max-width: 1024px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    @media (max-width: 768px) {
+    @media (max-width: 1200px) {
         grid-template-columns: repeat(2, 1fr);
     }
-    @media (max-width: 480px) {
+
+    @media (max-width: 768px) {
         grid-template-columns: 1fr;
     }
 }
@@ -25,11 +22,26 @@
     overflow: hidden;
     height: 48rem;
     
-    /* Make first and second take more space on desktop if possible, but grid makes them equal */
-    /* Looking at the design, the items are styled with different aspect ratios maybe, or just masonry. For now a standard grid works well. */
-    /* The design specifically has 2 items on first row, 3 on second row. 
-       We can achieve this using masonry or custom grid areas. Let's use simple flex/grid combination or just grid. */
-       
+    // Grid spans for desktop — based on API data order:
+    // 1: elektricke-naradie  → col 1,   row 1
+    // 2: zahrada-a-les       → cols 2-3, row 1
+    // 3: cistenie            → cols 1-2, row 2
+    // 4: rucne-naradie       → col 3,   row 2
+    // 5: prislusenstvo       → col 4,   rows 1-2 (explicitly pinned)
+    @media (min-width: 1201px) {
+        &:nth-child(2) {
+            grid-column: span 2;
+        }
+        &:nth-child(3) {
+            grid-column: span 2;
+        }
+        &:nth-child(5) {
+            grid-column: 4;
+            grid-row: 1 / span 2;
+            height: auto;
+        }
+    }
+
     &__image {
         position: absolute;
         inset: 0;
@@ -75,6 +87,7 @@
                 font-size: 2.4rem;
                 font-weight: 800;
                 margin: 0;
+                line-height: 1.1;
             }
             
             .c-category__count {
@@ -92,9 +105,17 @@
             list-style: none;
             padding: 0;
             margin: 0 0 1.6rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem 2.4rem;
+
+            // Wide tiles get 2 columns for subcategories
+            @media (min-width: 1201px) {
+                .c-category:nth-child(2) &,
+                .c-category:nth-child(3) & {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
             
             li {
                 display: flex;
@@ -103,6 +124,7 @@
                 font-family: $font-text;
                 font-size: 1.4rem;
                 color: #ddd;
+                white-space: nowrap;
                 
                 &::before {
                     content: "—";
@@ -130,6 +152,16 @@
             svg {
                 width: 1.6rem;
                 height: 1.6rem;
+            }
+        }
+
+        .c-category__sub-link {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                color: #fff;
+                text-decoration: underline;
             }
         }
     }
