@@ -183,7 +183,7 @@ export const renderModal = () => html`
                     </div>
                 </div>
                 <div class="c-modal__footer">
-                    <button type="submit" class="c-modal__submit">
+                    <button type="submit" class="c-modal__submit" aria-label="Získať tajnú ponuku">
                         Získať tajnú ponuku
                         ${iconSmallArrow({ class: "c-modal__submit-icon" })}
                     </button>

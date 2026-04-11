@@ -14,7 +14,7 @@ export const solutionCta = (ctaBanner) => html`
 
             <div class="c-solution-cta__content__description">${ctaBanner.description}</div>
 
-            <button class="c-solution-cta__content__button" @click=${() => handleCtaClick()}>
+            <button class="c-solution-cta__content__button" @click=${() => handleCtaClick()} aria-label="${ctaBanner.ctaText}">
                 <span class="sc-text">${ctaBanner.ctaText}</span>
                 ${iconArrow({ class: "sc-icon" })}
             </button>

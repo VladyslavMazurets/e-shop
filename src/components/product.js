@@ -77,10 +77,10 @@ export const renderProduct = (product) => {
                     ${badge.label}</span>`) : ''}
             </div>
             <div class="c-product__compare">
-                <button title="Porovnať" @click=${handleActionClick}>
+                <button title="Porovnať" @click=${handleActionClick} aria-label="Porovnať">
                     ${iconScale()}
                 </button>
-                <button title="Obľúbené" @click=${handleActionClick}>
+                <button title="Obľúbené" @click=${handleActionClick} aria-label="Obľúbené">
                     ${iconHeart()}
                 </button>
             </div>
@@ -110,11 +110,11 @@ export const renderProduct = (product) => {
             
             <div class="c-product__actions">
                 <div class="c-quantity" data-qty="1">
-                    <button @click=${(e) => handleQtyChange(e, -1)}>${iconMinus()}</button>
+                    <button @click=${(e) => handleQtyChange(e, -1)} aria-label="Znížiť množstvo">${iconMinus()}</button>
                     <span class="c-quantity__value">1</span>
-                    <button @click=${(e) => handleQtyChange(e, 1)}>${iconPlus()}</button>
+                    <button @click=${(e) => handleQtyChange(e, 1)} aria-label="Zvýšiť množstvo">${iconPlus()}</button>
                 </div>
-                <button class="c-add-cart" @click=${(e) => handleAddToCart(e, product)}>
+                <button class="c-add-cart" @click=${(e) => handleAddToCart(e, product)} aria-label="Pridať do košíka">
                     ${iconCart()}
                     Do košíka
                 </button>

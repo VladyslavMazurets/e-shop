@@ -41,6 +41,7 @@ export const solutionBanner = (banner) => {
                         class="c-solution-banner__content__button ${!link ? 'is-disabled' : ''}" 
                         @click=${handleLinkClick}
                         ?disabled=${!link}
+                        aria-label="${ctaText}"
                     >
                         <span class="sb-text">${ctaText}</span>
                         ${iconArrow({ class: "sb-icon" })}
