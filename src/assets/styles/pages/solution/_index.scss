@@ -2,9 +2,11 @@
 
 @use "./solution_banner";
 @use "./solution_content";
+@use "./product";
+@use "./categories";
 
 .l-solution {
     &__banner {
-        margin-bottom: 10rem;
+        margin-bottom: 6.4rem;
     }
 }

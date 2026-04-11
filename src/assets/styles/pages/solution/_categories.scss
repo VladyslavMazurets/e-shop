@@ -1,0 +1,144 @@
+@use "../../init" as *;
+
+.c-solution-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    gap: 2.4rem;
+    margin-top: 2.4rem;
+    margin-bottom: 6.4rem;
+    
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.c-category {
+    position: relative;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    height: 48rem;
+    
+    /* Make first and second take more space on desktop if possible, but grid makes them equal */
+    /* Looking at the design, the items are styled with different aspect ratios maybe, or just masonry. For now a standard grid works well. */
+    /* The design specifically has 2 items on first row, 3 on second row. 
+       We can achieve this using masonry or custom grid areas. Let's use simple flex/grid combination or just grid. */
+       
+    &__image {
+        position: absolute;
+        inset: 0;
+        background-color: var(--c-bg);
+        background-position: center;
+        background-size: cover;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover &__image {
+        transform: scale(1.05);
+    }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgb(0 0 0 / 0%) 0%,
+            rgb(0 0 0 / 20%) 40%,
+            rgb(0 0 0 / 80%) 100%
+        );
+    }
+
+    &__content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 3.2rem 2.4rem;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        
+        &__header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.6rem;
+            
+            h3 {
+                font-family: $font-heading;
+                font-size: 2.4rem;
+                font-weight: 800;
+                margin: 0;
+            }
+            
+            .c-category__count {
+                background: #dd1969;
+                color: #fff;
+                font-family: $font-text;
+                font-size: 1.2rem;
+                font-weight: 700;
+                padding: 0.2rem 0.6rem;
+                border-radius: 1rem;
+            }
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.6rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            
+            li {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                font-family: $font-text;
+                font-size: 1.4rem;
+                color: #ddd;
+                
+                &::before {
+                    content: "—";
+                    color: #dd1969;
+                    font-weight: 700;
+                }
+            }
+        }
+        
+        .c-category__link {
+            color: #fff;
+            text-decoration: underline;
+            font-family: $font-text;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            
+            &:hover {
+                text-decoration: none;
+                color: #dd1969;
+            }
+            
+            svg {
+                width: 1.6rem;
+                height: 1.6rem;
+            }
+        }
+    }
+}
+
+.c-categories-title {
+    font-family: $font-heading;
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin-top: 6.4rem;
+    margin-bottom: 0;
+}

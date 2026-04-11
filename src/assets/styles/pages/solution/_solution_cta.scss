@@ -4,8 +4,17 @@
     position: relative;
     width: 64rem;
     height: 54rem;
+    max-width: 100%;
     overflow: hidden;
     border-radius: 0.8rem;
+
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        height: 40rem;
+    }
 
     &__image {
         position: absolute;
@@ -40,6 +49,10 @@
             font-size: 3.5rem;
             font-weight: 800;
             line-height: 1.2;
+
+            @media (max-width: 768px) {
+                font-size: 2.8rem;
+            }
         }
 
         &__description {
@@ -83,9 +96,12 @@
             }
 
             .sc-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 flex-shrink: 0;
-                width: 2rem;
-                height: 2rem;
+                width: 1.6rem;
+                height: 1.6rem;
             }
         }
     }

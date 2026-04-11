@@ -2,9 +2,10 @@
 
 .c-solution-banner {
     position: relative;
-    height: 56.9rem;
+    min-height: 56.9rem;
     overflow: hidden;
     border-radius: 0.8rem;
+    
 
     &__image {
         position: absolute;
@@ -12,18 +13,13 @@
         background-color: var(--c-bg);
         background-position: center;
         background-size: cover;
-        border-radius: 0.8rem;
+        // removed border-radius here to allow it to grow with parent if needed
     }
 
     &__overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(
-            90deg,
-            rgb(0 0 0 / 60%) 0%,
-            rgb(0 0 0 / 20%) 50%,
-            transparent 100%
-        );
+        background: linear-gradient(85.28deg, rgba(0, 0, 0, 0.64) 22.49%, rgba(0, 0, 0, 0) 59.21%);
         border-radius: 0.8rem;
     }
 
@@ -33,65 +29,103 @@
         flex-direction: column;
         gap: 3.2rem;
         align-items: flex-start;
-        justify-content: center;
         height: 100%;
         padding: 12.8rem 9.7rem;
         color: #fff;
 
+        @media (max-width: 1024px) {
+            padding: 8rem 4.8rem;
+        }
+
+        @media (max-width: 768px) {
+            padding: 4.8rem 2.4rem;
+            justify-content: flex-end;
+            gap: 2.4rem;
+        }
+
         &__title {
+            display: -webkit-box;
             width: 52rem;
+            max-width: 100%;
             margin: 0;
+            overflow: hidden;
             font-family: "Wix Madefor Display", sans-serif;
             font-size: 5.2rem;
             font-weight: 800;
-            line-height: 1.25;
+            line-height: 1.2;
+           
+
+            @media (max-width: 768px) {
+                font-size: 3.2rem;
+            }
         }
 
         &__description {
+            display: -webkit-box;
             width: 52rem;
+            max-width: 100%;
             margin: 0;
+            overflow: hidden;
             font-family: "DM Sans", sans-serif;
             font-size: 1.6rem;
             font-weight: 400;
-            line-height: 1.4;
+            line-height: 1.5;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
 
             strong {
                 font-weight: 800;
+            }
+
+            @media (max-width: 768px) {
+                font-size: 1.4rem;
             }
         }
 
         &__button {
             display: flex;
-            gap: 0.8rem;
+            gap: 1.6rem;
             align-items: center;
             justify-content: space-between;
-            padding: 1.6rem 2rem;
+            min-width: 18rem;
+            max-width: 100%;
+            padding: 1.6rem 2.4rem;
             color: #fff;
             cursor: pointer;
             background: #dd1969;
             border: none;
             border-radius: 0.4rem;
-            transition: background 0.2s ease;
+            transition: background 0.2s ease, opacity 0.2s ease;
 
-            &:hover {
+            &:hover:not(:disabled) {
                 background: #c01559;
             }
 
-            &:active {
+            &:active:not(:disabled) {
                 background: #a01249;
+            }
+
+            &:disabled,
+            &.is-disabled {
+                cursor: not-allowed;
+                opacity: 0.6;
             }
 
             .sb-text {
                 font-family: "Wix Madefor Display", sans-serif;
                 font-size: 1.6rem;
                 font-weight: 700;
-                white-space: nowrap;
+                line-height: 1.2;
+                text-align: left;
             }
 
             .sb-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 flex-shrink: 0;
-                width: 2rem;
-                height: 2rem;
+                width: 1.6rem;
+                height: 1.6rem;
             }
         }
     }

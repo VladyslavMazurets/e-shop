@@ -19,15 +19,17 @@ class Router {
 
     /**
      * Navigate to a route
-     * @param {string} path - Route path to navigate to
+     * @param {string} fullPath - Route path to navigate to
      */
-    navigate(path) {
-        if (this.routes[path]) {
-            this.currentRoute = path;
-            window.history.pushState({}, "", path);
-            this.routes[path]();
+    navigate(fullPath) {
+        const basePath = fullPath.split('?')[0];
+
+        if (this.routes[basePath]) {
+            this.currentRoute = basePath;
+            window.history.pushState({}, "", fullPath);
+            this.routes[basePath]();
         } else {
-            console.warn(`Route not found: ${path}`);
+            console.warn(`Route not found: ${basePath}`);
         }
     }
 
