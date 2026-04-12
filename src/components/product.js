@@ -56,21 +56,11 @@ const handleActionClick = (e) => {
     e.target.closest('button').classList.toggle('is-active');
 };
 
-const handleProductClick = (e, link) => {
-    // If user clicked on a button or quantity input, don't navigate
-    if (e.target.closest('button, input')) {
-        return;
-    }
-    
-    e.preventDefault();
-    router.navigate(link);
-};
-
 export const renderProduct = (product) => {
     const finalImageUrl = productImagesMap[product.id] || product.imageUrl;
 
     return html`
-    <a href="${product.link}" class="c-product" @click=${(e) => handleProductClick(e, product.link)}>
+    <a href="${product.link}" class="c-product">
         <div class="c-product__header">
             <div class="c-product-badges">
                 ${product.badges ? product.badges.map(badge => html`<span class="c-product-badges__badge c-product-badges__badge--${badge.type}">
