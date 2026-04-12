@@ -81,10 +81,18 @@
 
             &:hover {
                 background: #c01559;
+
+                svg {
+                    transform: translateX(0.4rem);
+                }
             }
 
             &:active {
                 background: #a01249;
+            }
+
+            svg {
+                transition: transform 0.2s ease;
             }
 
             .sc-text {

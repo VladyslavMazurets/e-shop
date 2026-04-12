@@ -99,10 +99,18 @@
 
             &:hover:not(:disabled) {
                 background: #c01559;
+
+                svg {
+                    transform: translateX(0.4rem);
+                }
             }
 
             &:active:not(:disabled) {
                 background: #a01249;
+            }
+
+            svg {
+                transition: transform 0.2s ease;
             }
 
             &:disabled,
