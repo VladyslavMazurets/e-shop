@@ -12,7 +12,7 @@
         "stylelint": "stylelint \"src/**/*.scss\" --fix",
         "eslint": "eslint src/ --fix",
         "eslint-dry-run": "eslint src/ --fix-dry-run",
-        "lint": "npm run prettier && npm run stylelint && npm run eslint"
+        "lint": "yarn run prettier && yarn run stylelint && yarn run eslint"
     },
     "devDependencies": {
         "@riesenia/fe-configs": "^3.0.4",

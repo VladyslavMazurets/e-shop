@@ -1,12 +1,12 @@
 import { html } from "lit-html";
 import { router } from "../router.js";
 import { iconArrow } from "./icons.js";
-import heroBannerImg from '../assets/images/hero-banner.webp';
+import heroBannerImg from "../assets/images/hero-banner.webp";
 
 const handleBannerClick = (link) => {
     if (!link) return;
 
-    const newLink = link.replace('/products', '/solution');
+    const newLink = link.replace("/products", "/solution");
     router.navigate(newLink);
 };
 
@@ -18,7 +18,7 @@ export const solutionBanner = (banner) => {
         description = "",
         ctaText = "Zistiť viac",
         link = "",
-        imageUrl =  "https://placehold.co/1920x600"
+        imageUrl = "https://placehold.co/1920x600",
     } = banner;
 
     const handleLinkClick = (e) => {
@@ -31,22 +31,33 @@ export const solutionBanner = (banner) => {
 
     return html`
         <div class="c-solution-banner">
-            <div class="c-solution-banner__image" style="background-image: url('${heroBannerImg || imageUrl}')"></div>
+            <div
+                class="c-solution-banner__image"
+                style="background-image: url('${heroBannerImg || imageUrl}')"
+            ></div>
             <div class="c-solution-banner__overlay"></div>
             <div class="c-solution-banner__content">
                 ${title ? html`<h1 class="c-solution-banner__content__title">${title}</h1>` : ""}
-                ${description ? html`<div class="c-solution-banner__content__description">${description}</div>` : ""}
-                ${ctaText ? html`
-                    <button 
-                        class="c-solution-banner__content__button ${!link ? 'is-disabled' : ''}" 
-                        @click=${handleLinkClick}
-                        ?disabled=${!link}
-                        aria-label="${ctaText}"
-                    >
-                        <span class="sb-text">${ctaText}</span>
-                        ${iconArrow({ class: "sb-icon" })}
-                    </button>
-                ` : ""}
+                ${description
+                    ? html`<div class="c-solution-banner__content__description">
+                          ${description}
+                      </div>`
+                    : ""}
+                ${ctaText
+                    ? html`
+                          <button
+                              class="c-solution-banner__content__button ${!link
+                                  ? "is-disabled"
+                                  : ""}"
+                              @click=${handleLinkClick}
+                              ?disabled=${!link}
+                              aria-label="${ctaText}"
+                          >
+                              <span class="sb-text">${ctaText}</span>
+                              ${iconArrow({ class: "sb-icon" })}
+                          </button>
+                      `
+                    : ""}
             </div>
         </div>
     `;

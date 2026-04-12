@@ -22,7 +22,7 @@ class Router {
      * @param {string} fullPath - Route path to navigate to
      */
     navigate(fullPath) {
-        const basePath = fullPath.split('?')[0];
+        const basePath = fullPath.split("?")[0];
 
         if (this.routes[basePath]) {
             this.currentRoute = basePath;

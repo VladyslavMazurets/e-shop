@@ -14,7 +14,9 @@ const dropdownOptions = [
 const handleDropdownToggle = (e) => {
     const wrapper = e.target.closest(".c-modal__dropdown");
     const isOpen = wrapper.classList.contains("is-open");
-    document.querySelectorAll(".c-modal__dropdown.is-open").forEach((el) => el.classList.remove("is-open"));
+    document
+        .querySelectorAll(".c-modal__dropdown.is-open")
+        .forEach((el) => el.classList.remove("is-open"));
     if (!isOpen) {
         wrapper.classList.add("is-open");
     }
@@ -25,14 +27,17 @@ const handleDropdownSelect = (e, value) => {
     const input = wrapper.querySelector("input");
     const trigger = wrapper.querySelector(".c-modal__dropdown-trigger");
     input.value = value;
-    trigger.querySelector("span").textContent = dropdownOptions.find((o) => o.value === value)?.label || "";
+    trigger.querySelector("span").textContent =
+        dropdownOptions.find((o) => o.value === value)?.label || "";
     wrapper.classList.remove("is-open");
     trigger.classList.toggle("has-value", value !== "");
 };
 
 export const handleDropdownOutsideClick = (e) => {
     if (!e.target.closest(".c-modal__dropdown")) {
-        document.querySelectorAll(".c-modal__dropdown.is-open").forEach((el) => el.classList.remove("is-open"));
+        document
+            .querySelectorAll(".c-modal__dropdown.is-open")
+            .forEach((el) => el.classList.remove("is-open"));
     }
 };
 
@@ -151,42 +156,57 @@ export const renderModal = () => html`
             <form class="c-modal__form" @submit=${handleFormSubmit}>
                 <div class="c-modal__body">
                     <div class="c-modal__message"></div>
-                    
+
                     <div class="c-modal__grid">
                         <div class="c-modal__grid-item is-full">
                             <label class="c-modal__label">
                                 E-mail <span class="required">*</span>
-                                <input type="email" name="email" placeholder="vas@email.sk" >
+                                <input type="email" name="email" placeholder="vas@email.sk" />
                             </label>
                         </div>
-                        
+
                         <div class="c-modal__grid-item is-half">
                             <label class="c-modal__label">
                                 Meno a priezvisko <span class="required">*</span>
-                                <input type="text" name="name" placeholder="Meno Priezvisko" >
+                                <input type="text" name="name" placeholder="Meno Priezvisko" />
                             </label>
                         </div>
-                        
+
                         <div class="c-modal__grid-item is-half">
                             <label class="c-modal__label">
                                 Telefónne číslo (mobil) <span class="required">*</span>
-                                <input type="tel" name="phone" placeholder="+421 _ _ _  _ _ _  _ _ _" >
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="+421 _ _ _  _ _ _  _ _ _"
+                                />
                             </label>
                         </div>
-                        
+
                         <div class="c-modal__grid-item is-full">
                             <label class="c-modal__label">
-                                Odkiaľ ste sa o tejto ponuke dozvedeli? <span class="required">*</span>
+                                Odkiaľ ste sa o tejto ponuke dozvedeli?
+                                <span class="required">*</span>
                                 <div class="c-modal__dropdown">
-                                    <input type="hidden" name="discoverySource" value="">
-                                    <div class="c-modal__dropdown-trigger" @click=${handleDropdownToggle}>
+                                    <input type="hidden" name="discoverySource" value="" />
+                                    <div
+                                        class="c-modal__dropdown-trigger"
+                                        @click=${handleDropdownToggle}
+                                    >
                                         <span>Vyberte možnosť</span>
                                         ${iconChevronDown({ class: "c-modal__dropdown-icon" })}
                                     </div>
                                     <div class="c-modal__dropdown-menu">
                                         ${dropdownOptions.map(
                                             (opt) =>
-                                                html`<div class="c-modal__dropdown-option" data-value="${opt.value}" @click=${(e) => handleDropdownSelect(e, opt.value)}>${opt.label}</div>`
+                                                html`<div
+                                                    class="c-modal__dropdown-option"
+                                                    data-value="${opt.value}"
+                                                    @click=${(e) =>
+                                                        handleDropdownSelect(e, opt.value)}
+                                                >
+                                                    ${opt.label}
+                                                </div>`
                                         )}
                                     </div>
                                 </div>
@@ -196,12 +216,11 @@ export const renderModal = () => html`
                 </div>
                 <div class="c-modal__footer">
                     <button type="submit" class="c-modal__submit" aria-label="Získať tajnú ponuku">
-                        Získať tajnú ponuku
-                        ${iconSmallArrow({ class: "c-modal__submit-icon" })}
+                        Získať tajnú ponuku ${iconSmallArrow({ class: "c-modal__submit-icon" })}
                     </button>
-                    
+
                     <p class="c-modal__privacy">
-                        Odoslaním formuláru súhlasíte <br>
+                        Odoslaním formuláru súhlasíte <br />
                         so <a href="/privacy" target="_blank">spracovaním osobných údajov</a>
                     </p>
                 </div>

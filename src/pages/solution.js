@@ -24,10 +24,16 @@ export const renderSolutionPage = (data) => {
 
             <div class="l-solution__content">
                 <div class="l-container is-shorter">
-                        <div class="c-solution-content">
-                            ${data.ctaBanner ? html`<div class="c-solution-content__cta">${solutionCta(data.ctaBanner)}</div>` : ""}
-                            ${[...data.products, ...data.products].map(product => renderProduct(product))}
-                        </div>
+                    <div class="c-solution-content">
+                        ${data.ctaBanner
+                            ? html`<div class="c-solution-content__cta">
+                                  ${solutionCta(data.ctaBanner)}
+                              </div>`
+                            : ""}
+                        ${[...data.products, ...data.products].map((product) =>
+                            renderProduct(product)
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -35,7 +41,7 @@ export const renderSolutionPage = (data) => {
                 <div class="l-container">
                     <h2 class="c-categories-title">Top kategórie produktov</h2>
                     <div class="c-solution-categories">
-                        ${data.categories.map(cat => renderCategory(cat))}
+                        ${data.categories.map((cat) => renderCategory(cat))}
                     </div>
                 </div>
             </div>
