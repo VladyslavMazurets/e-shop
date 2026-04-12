@@ -102,9 +102,21 @@ const handleFormSubmit = async (e) => {
         return;
     }
 
+    // Phone validation
+    const cleanPhone = phone.replace(/\s+/g, "");
+    // Expecting:
+    // 1. International: + and 12 digits (e.g. +421 951 593 345)
+    // 2. Local: 0 and 9 digits (e.g. 0953 356 653)
+    const phoneRegex = /^(\+[0-9]{12}|0[0-9]{9})$/;
+    if (!phoneRegex.test(cleanPhone)) {
+        msg.innerText = "Neplatný formát telefónneho čísla.";
+        msg.className = "c-modal__message is-visible is-error";
+        return;
+    }
+
     submitBtn.disabled = true;
     msg.innerText = "Overujem...";
-    msg.className = "c-modal__message is-visible";
+    msg.className = "c-modal__message is-visible is-loading";
 
     try {
         const result = await validateEmail(email);
@@ -144,21 +156,21 @@ export const renderModal = () => html`
                         <div class="c-modal__grid-item is-full">
                             <label class="c-modal__label">
                                 E-mail <span class="required">*</span>
-                                <input type="email" name="email" placeholder="vas@email.sk" required>
+                                <input type="email" name="email" placeholder="vas@email.sk" >
                             </label>
                         </div>
                         
                         <div class="c-modal__grid-item is-half">
                             <label class="c-modal__label">
                                 Meno a priezvisko <span class="required">*</span>
-                                <input type="text" name="name" placeholder="Meno Priezvisko" required>
+                                <input type="text" name="name" placeholder="Meno Priezvisko" >
                             </label>
                         </div>
                         
                         <div class="c-modal__grid-item is-half">
                             <label class="c-modal__label">
                                 Telefónne číslo (mobil) <span class="required">*</span>
-                                <input type="tel" name="phone" placeholder="+421 _ _ _  _ _ _  _ _ _" required>
+                                <input type="tel" name="phone" placeholder="+421 _ _ _  _ _ _  _ _ _" >
                             </label>
                         </div>
                         

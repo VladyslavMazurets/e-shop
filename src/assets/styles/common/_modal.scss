@@ -113,7 +113,20 @@
                 background: #fee;
                 color: #c00;
             }
+
+            &.is-loading {
+                background: #fdf0f5;
+                color: #dd1969;
+                border: 1px solid rgba(221, 25, 105, 0.2);
+                animation: modal-pulse 1.5s infinite;
+            }
         }
+    }
+
+    @keyframes modal-pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.7; }
+        100% { opacity: 1; }
     }
 
     &__grid {
