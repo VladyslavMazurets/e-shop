@@ -16,6 +16,15 @@ export const renderSolutionPage = (data) => {
         return html`<div class="l-solution">Loading...</div>`;
     }
 
+    let products = [...data.products, ...data.products];
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryQuery = urlParams.get("category");
+    
+    if (categoryQuery) {
+        const filterTerm = categoryQuery.split('-')[0].toLowerCase();
+        products = products.filter(p => p.name.toLowerCase().includes(filterTerm));
+    }
+
     return html`
         <div class="l-solution">
             <div class="l-solution__banner">
@@ -30,9 +39,7 @@ export const renderSolutionPage = (data) => {
                                   ${solutionCta(data.ctaBanner)}
                               </div>`
                             : ""}
-                        ${[...data.products, ...data.products].map((product) =>
-                            renderProduct(product)
-                        )}
+                        ${products.map(product => renderProduct(product))}
                     </div>
                 </div>
             </div>

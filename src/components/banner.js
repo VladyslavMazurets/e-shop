@@ -8,6 +8,13 @@ const handleBannerClick = (link) => {
 
     const newLink = link.replace("/products", "/solution");
     router.navigate(newLink);
+
+    setTimeout(() => {
+        const productsSection = document.querySelector('.c-solution-content');
+        if (productsSection) {
+            productsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, 100);
 };
 
 export const solutionBanner = (banner) => {
