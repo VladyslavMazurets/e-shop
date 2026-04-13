@@ -16,13 +16,13 @@ export const renderSolutionPage = (data) => {
         return html`<div class="l-solution">Loading...</div>`;
     }
 
-    let products = [...data.products, ...data.products];
+    let products = data.products;
     const urlParams = new URLSearchParams(window.location.search);
     const categoryQuery = urlParams.get("category");
-    
+
     if (categoryQuery) {
-        const filterTerm = categoryQuery.split('-')[0].toLowerCase();
-        products = products.filter(p => p.name.toLowerCase().includes(filterTerm));
+        const filterTerm = categoryQuery.split("-")[0].toLowerCase();
+        products = products.filter((p) => p.name.toLowerCase().includes(filterTerm));
     }
 
     return html`
@@ -39,7 +39,7 @@ export const renderSolutionPage = (data) => {
                                   ${solutionCta(data.ctaBanner)}
                               </div>`
                             : ""}
-                        ${products.map(product => renderProduct(product))}
+                        ${products.map((product) => renderProduct(product))}
                     </div>
                 </div>
             </div>

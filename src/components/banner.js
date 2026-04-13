@@ -10,9 +10,9 @@ const handleBannerClick = (link) => {
     router.navigate(newLink);
 
     setTimeout(() => {
-        const productsSection = document.querySelector('.c-solution-content');
+        const productsSection = document.querySelector(".c-solution-content");
         if (productsSection) {
-            productsSection.scrollIntoView({ behavior: 'smooth' });
+            productsSection.scrollIntoView({ behavior: "smooth" });
         }
     }, 100);
 };

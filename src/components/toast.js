@@ -31,9 +31,7 @@ class ToastManager {
             <div class="c-toast__content">
                 <p class="c-toast__message">${message}</p>
             </div>
-            <button class="c-toast__close" aria-label="Zavrieť">
-                ${iconToastClose()}
-            </button>
+            <button class="c-toast__close" aria-label="Zavrieť">${iconToastClose()}</button>
             <div class="c-toast__progress">
                 <div class="c-toast__progress-bar" style="animation-duration: ${duration}ms"></div>
             </div>

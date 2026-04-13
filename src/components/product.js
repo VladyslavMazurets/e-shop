@@ -44,15 +44,15 @@ const handleQtyChange = (e, delta) => {
     e.stopPropagation();
     const qtyEl = e.target.closest(".c-quantity");
     let val = parseInt(qtyEl.dataset.qty, 10) + delta;
-    
+
     if (val < 1) val = 1;
-    
+
     // Block at 10 and show warning
     if (val > 10) {
         showToast("Upozornenie: Pridali ste viac ako maximálne množstvo 10 ks.", "warning");
         val = 10;
     }
-    
+
     qtyEl.dataset.qty = val;
     qtyEl.querySelector(".c-quantity__value").textContent = val;
 };
