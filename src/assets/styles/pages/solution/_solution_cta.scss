@@ -8,8 +8,17 @@
     overflow: hidden;
     border-radius: 0.8rem;
 
-    @media (width <= 768px) {
-        min-height: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (width <= 700px) {
+        min-height: 35rem;
+        width: calc(100% + 4rem);
+        margin-left: -2rem;
+        margin-top: 3.2rem;
+
+        border-radius: 0;
     }
 
     &__image {
@@ -19,6 +28,10 @@
         background-position: center;
         background-size: cover;
         border-radius: 0.8rem;
+
+        @media (width <= 767px) {
+            border-radius: 0;
+        }
     }
 
     &__overlay {
@@ -40,6 +53,12 @@
         padding: 4.8rem;
         color: #fff;
 
+        @media (width <= 767px) {
+            padding: 2.4rem;
+
+            max-width: 37.5rem;
+        }
+
         &__title {
             margin: 0;
             font-family: "Wix Madefor Display", sans-serif;
@@ -47,7 +66,7 @@
             font-weight: 800;
             line-height: 1.2;
 
-            @media (width <= 768px) {
+            @media (width <= 767px) {
                 font-size: 2.8rem;
             }
         }
@@ -65,6 +84,7 @@
         }
 
         &__button {
+            max-width: 51.6rem;
             display: flex;
             gap: 0.8rem;
             align-items: center;
@@ -76,6 +96,11 @@
             border: none;
             border-radius: 0.4rem;
             transition: background 0.2s ease;
+
+            @media (width < 768px) {
+                min-width: 14rem;
+                padding: 1.2rem 2rem;
+            }
 
             &:hover {
                 background: #c01559;
@@ -97,7 +122,12 @@
                 font-family: "Wix Madefor Display", sans-serif;
                 font-size: 1.6rem;
                 font-weight: 700;
-                white-space: nowrap;
+                word-wrap: break-all;
+                text-align: start;
+
+                @media (width < 768px) {
+                    font-size: 1.3rem;
+                }
             }
 
             .sc-icon {
@@ -107,6 +137,11 @@
                 justify-content: center;
                 width: 1.6rem;
                 height: 1.6rem;
+
+                @media (width < 768px) {
+                    width: 1.4rem;
+                    height: 1.2rem;
+                }
             }
         }
     }

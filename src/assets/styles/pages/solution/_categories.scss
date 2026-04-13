@@ -12,15 +12,27 @@
     }
 
     @media (width <= 768px) {
+        grid-template-columns: repeat(2, 1fr);
+
+        margin-top: 2.4rem;
+    }
+
+    @media (width <= 700px) {
         grid-template-columns: 1fr;
+
+        margin-top: 2.4rem;
     }
 }
 
 .c-category {
     position: relative;
-    height: 48rem;
+    min-height: 48rem;
     overflow: hidden;
     border-radius: 0.8rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 
     // Grid spans for desktop — based on API data order:
     // 1: elektricke-naradie  → col 1,   row 1
@@ -44,6 +56,12 @@
         }
     }
 
+    @media (701px <= width <= 1200px) {
+        &:last-child:nth-child(odd) {
+            grid-column: span 2;
+        }
+    }
+
     &:hover {
         .c-category__image {
             transform: scale(1.1);
@@ -57,6 +75,7 @@
         background-position: center;
         background-size: cover;
         transition: transform 0.3s ease;
+        z-index: 0;
     }
 
     &__overlay {
@@ -71,7 +90,8 @@
     }
 
     &__content {
-        position: absolute;
+        position: relative;
+        z-index: 2;
         bottom: 0;
         left: 0;
         display: flex;
@@ -80,9 +100,14 @@
         padding: 3.2rem;
         color: #fff;
 
+        @media (width <= 767px) {
+            padding: 2.4rem;
+        }
+
         &__header {
             display: flex;
             gap: 0.8rem;
+            align-items: center;
             align-items: center;
             margin-bottom: 1.6rem;
 
@@ -92,6 +117,7 @@
                 font-size: 2.4rem;
                 font-weight: 800;
                 line-height: 1.2;
+                overflow-wrap: break-word;
             }
 
             .c-category__count {
@@ -101,6 +127,7 @@
                 color: #fff;
                 background: #dd1969;
                 border-radius: 2rem;
+                flex-shrink: 0;
             }
         }
 
@@ -124,7 +151,7 @@
             li {
                 display: flex;
                 gap: 1.2rem;
-                align-items: center;
+                align-items: flex-start;
                 font-size: 1.6rem;
                 font-weight: 500;
                 line-height: 1.8;
@@ -183,4 +210,10 @@
     font-size: 4rem;
     font-weight: 800;
     line-height: 1.2;
+
+    @media (width <= 767px) {
+        margin-top: 4.4rem;
+
+        font-size: 2.4rem;
+    }
 }

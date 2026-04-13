@@ -107,11 +107,7 @@ const handleFormSubmit = async (e) => {
         return;
     }
 
-    // Phone validation
     const cleanPhone = phone.replace(/\s+/g, "");
-    // Expecting:
-    // 1. International: + and 12 digits (e.g. +421 951 593 345)
-    // 2. Local: 0 and 9 digits (e.g. 0953 356 653)
     const phoneRegex = /^(\+[0-9]{12}|0[0-9]{9})$/;
     if (!phoneRegex.test(cleanPhone)) {
         msg.innerText = "Neplatný formát telefónneho čísla.";

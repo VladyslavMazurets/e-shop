@@ -8,5 +8,9 @@
 .l-solution {
     &__banner {
         margin-bottom: 10rem;
+
+        @media (width <= 1024px) {
+            margin-bottom: 4.4rem;
+        }
     }
 }
