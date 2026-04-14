@@ -15,8 +15,9 @@
     }
 
     &__main {
+        display: flex;
         flex: 1;
-        padding: 3.2rem 0;
+        flex-direction: column;
     }
 
     &__footer {

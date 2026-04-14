@@ -1,5 +1,6 @@
 import { html } from "lit-html";
 import { loadData } from "../dataLoader.js";
+import { renderLoader } from "../components/loader.js";
 import { solutionBanner } from "../components/banner.js";
 import { solutionCta } from "../components/cta.js";
 import { renderProduct } from "../components/product.js";
@@ -13,7 +14,7 @@ import { renderModal } from "../components/modal.js";
 // Main page template
 export const renderSolutionPage = (data) => {
     if (!data) {
-        return html`<div class="l-solution">Loading...</div>`;
+        return renderLoader();
     }
 
     let products = data.products;
